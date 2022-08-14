@@ -8,7 +8,7 @@ class CreateGeneralSettings extends SettingsMigration
     public function up(): void
     {
         foreach (config('nustil.settings') as $setting => $value) {
-            $this->migrator->add($setting, $value);
+            $this->migrator->add('general.'.$setting, $value);
         }
     }
 
