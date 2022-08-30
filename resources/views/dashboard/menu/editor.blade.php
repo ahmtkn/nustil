@@ -4,7 +4,7 @@
     <h2 class="font-bold text-xl text-gray-800 leading-tight">
         {{ __('Menus') }}
         <small class="flex items-center animate-x text-slate-600/[.5]">
-           <x-locale-flag class="w-6 mr-2" :flag="$lang"/>
+            <x-locale-flag class="w-6 mr-2" :flag="$lang"/>
             <span class="animate-x">{{$group}}</span>
         </small>
     </h2>
@@ -12,7 +12,11 @@
 @section('content')
     <div
         x-data="{menuItem:{{$backup->toJson()}},creating:true,action:null,deleteUrl : '{{route('dashboard.menus.delete',['group'=>$lang.':'.$group,'menu'=>'ITEM_ID'])}}'}">
-        <div class="flex items-center pt-2 justify-end">
+        <div class="flex items-center pt-2 gap-2 justify-end">
+            <a href="javascript:;" @click="diagnose()" class="btn btn-white">
+                <i icon-name="check"></i>
+                {{__('Detect Problems')}}
+            </a>
             <a href="javascript:;" @click="menuItem={{$backup->toJson()}};creating=true"
                data-modal-toggle="menu-item-editor"
                class="btn btn-emerald">
@@ -46,7 +50,8 @@
                                         @if(!in_array('POST',$route->methods) && in_array('web',$route->action['middleware'])
                                             && !in_array('auth',$route->action['middleware'])
                                             && $route->getName() && !\Illuminate\Support\Str::contains($route->getName(),'password') && $route->getName() != 'root')
-                                            <option value="{{$route->getName()}}">{{__('routes.'.$route->getname())}}</option>
+                                            <option
+                                                value="{{$route->getName()}}">{{__('routes.'.$route->getname())}}</option>
                                         @endif
                                     @endforeach
                                 </select>
@@ -104,13 +109,22 @@
                 </x-slot>
             </x-dashboard.modal>
         </div>
-        <div class="max-w-2xl">
+        <div class="max-w-2xl" id="menuItemList">
             @foreach($items as $item)
-                <div class="card animate-x group">
+                <div class="card animate-x group" id="menuItem{{$item->id}}"
+                     data-url="{{\App\Models\Menu::getUrl($item)}}">
                     <div class="card-body">
                         <div class="flex justify-between">
                             <div>
-                                <b class="block">{{$item->title}}</b>
+                                <b class="flex items-center">
+                                    <span class="diagnose-status inline-block mr-2">
+                                        <i icon-name="loader-2"
+                                           class="processing text-slate-300 animate-spin hidden"></i>
+                                        <i icon-name="check" class="success text-emerald-600 hidden"></i>
+                                        <i icon-name="x-octagon" class="warning text-red-500 hidden"></i>
+                                    </span>
+                                    {{$item->title}}
+                                </b>
                             </div>
                             <div class="hidden group-hover:flex items-center gap-2">
                                 <a class="text-slate-400 hover:text-emerald-700" href="javascript:;"
@@ -178,6 +192,39 @@
                 })
             });
             return await response.json();
+        }
+
+        function diagnose() {
+            const items = document.querySelectorAll('#menuItemList .card');
+
+            for (let i = 0; i < items.length; i++) {
+                let icons = {
+                    processing: items[i].querySelector('.processing'),
+                    success: items[i].querySelector('.success'),
+                    warning: items[i].querySelector('.warning')
+                };
+                let url = items[i].getAttribute('data-url');
+                icons.processing.classList.remove('hidden');
+                icons.warning.classList.add('hidden');
+                icons.success.classList.add('hidden');
+
+                let diagnostic = async function () {
+                    let response = await fetch(url).then(function (response) {
+                        if (response.status === 200) {
+                            icons.success.classList.remove('hidden');
+                            icons.processing.classList.add('hidden');
+                            icons.warning.classList.add('hidden');
+                        } else {
+                            icons.warning.classList.remove('hidden');
+                            icons.processing.classList.add('hidden');
+                            icons.success.classList.add('hidden');
+                        }
+                        return response.status;
+                    }).catch(function (error) {
+                        return error.status;
+                    });
+                }();
+            }
         }
     </script>
 @endpush

@@ -56,7 +56,7 @@ class Menu extends Model
         );
         $menu = \Spatie\Menu\Laravel\Menu::new();
         foreach ($items as $item) {
-            $itemType = self::getLink($item);
+            $itemType = self::getAnchorTag($item);
             if (!is_null($itemType)) {
                 $menu->add($itemType->addParentClass('lg:animate-x'));
             }
@@ -66,7 +66,7 @@ class Menu extends Model
         return $menu;
     }
 
-    public static function getLink($item)
+    public static function getAnchorTag($item)
     {
         switch ($item->method) {
             default:
@@ -76,6 +76,17 @@ class Menu extends Model
                 return Route::has($item->to) ? Link::toRoute($item->to, $item->title, $item->payload) : null;
             case 'action':
                 return Link::toAction($item->to, $item->title, $item->payload);
+        }
+    }
+
+    public static function getURL($item)
+    {
+        switch ($item->method) {
+            default:
+            case 'url':
+                return $item->to;
+            case 'route':
+                return Route::has($item->to) ? route($item->to, $item->payload) : null;
         }
     }
 

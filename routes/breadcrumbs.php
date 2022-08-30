@@ -31,6 +31,11 @@ Breadcrumbs::for(__('route.category'), function (Trail $trail, Category $categor
     $trail->push($category->name, route('category.show', $category));
 });
 
+Breadcrumbs::for('page', function (Trail $trail, \App\Models\Page $page) {
+    $trail->parent('landing');
+    $trail->push($page->title, route('page', $page));
+});
+
 Breadcrumbs::for('post', function (Trail $trail, \App\Models\BlogPost $post) {
     if (!$post->relationLoaded('categories')) {
         $post->load('categories');

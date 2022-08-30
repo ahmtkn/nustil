@@ -7,6 +7,7 @@ use App\Routes\CategoryRoutes;
 use App\Helpers\LocalizationHelper;
 use App\Routes\Dashboard\MenuRoutes;
 use App\Routes\Dashboard\UserRoutes;
+use App\Routes\Dashboard\PageRoutes as DashboardPageRoutes;
 use App\Routes\Dashboard\CommentRoutes;
 use App\Routes\Dashboard\BlogRoutes as DashboardBlogRoutes;
 use App\Routes\Dashboard\ImageRoutes;
@@ -48,6 +49,7 @@ Route::group(['prefix' => $localePrefix.'/dashboard/', 'as' => 'dashboard.', 'mi
         SettingsRoutes::class,
         CommentRoutes::class,
         ImageRoutes::class,
+        DashboardPageRoutes::class,
     ]);
 });
 
@@ -60,7 +62,9 @@ Route::group(['prefix' => $localePrefix], function () {
         BlogRoutes::class,
     ]);
     require __DIR__.'/auth.php';
+    Route::get('{page:slug}', \App\Http\Controllers\PageController::class)->name('page');
 });
 Route::get('media/{image:token}', MediaController::class)->name('media');
+
 
 

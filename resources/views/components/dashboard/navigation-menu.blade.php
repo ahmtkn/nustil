@@ -66,6 +66,13 @@
             <div class="link-icon"><i icon-name="message-square"></i></div>
             <div class="link-text">{{__('Comments')}}</div>
         </x-dashboard.sidebar-link>
+        @can('blogs.read')
+            <x-dashboard.sidebar-link :href="route('dashboard.pages.index')"
+                                      :active="$route::is('dashboard.pages.*')">
+                <div class="link-icon"><i icon-name="file-text"></i></div>
+                <div class="link-text">{{__('Pages')}}</div>
+            </x-dashboard.sidebar-link>
+        @endcan
         @can('settings.update')
             <li class="divider animate-y"></li>
             <x-dashboard.sidebar-link :href="route('dashboard.settings.index')"

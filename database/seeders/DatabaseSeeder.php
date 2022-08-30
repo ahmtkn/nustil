@@ -22,9 +22,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(PermissionSeeder::class);
-        $this->call(NutritionSeeder::class);
-        $this->call(MenuPositionsSeeder::class);
+        $this->call([
+            PermissionSeeder::class,
+            NutritionSeeder::class,
+            MenuPositionsSeeder::class,
+        ]);
         $user = User::factory(1)->email('uutkukorkmaz@gmail.com')->password('123')->create()->first();
         foreach (Permission::all() as $perm) {
             $user->givePermissionTo($perm);
@@ -41,10 +43,14 @@ class DatabaseSeeder extends Seeder
                 $category->children()->saveMany(Category::factory(rand(0, 5))->create());
             });
 
-            $this->call(BlogCategorySeeder::class);
-            $this->call(BlogPostSeeder::class);
-            $this->call(ProductSeeder::class);
-            User::factory(100)->create();
+            $this->call([
+                BlogCategorySeeder::class,
+                BlogPostSeeder::class,
+                ProductSeeder::class,
+                PageSeeder::class,
+            ]);
+
+            User::factory(20)->create();
             cache()->flush();
         }
     }
