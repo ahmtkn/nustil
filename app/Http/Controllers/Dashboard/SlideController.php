@@ -28,8 +28,9 @@ class SlideController extends Controller
     public function store(CreateSlideRequest $request)
     {
         $slide = Slide::create($request->validated());
-        $image = ProductController::uploadImage($request, 'image', ['type' => 'srcset 1024w']);
-        $slide->images()->save($image);
+        $desktop_image = ProductController::uploadImage($request, 'desktop_image', ['type' => 'desktop']);
+        $mobile_image = ProductController::uploadImage($request, 'mobile_image', ['type' => 'mobile']);
+        $slide->images()->saveMany([$desktop_image, $mobile_image]);
         cache()->flush();
 
         return redirect()->route('dashboard.slides.index')->with('message', 'Slide created successfully');
@@ -43,9 +44,15 @@ class SlideController extends Controller
     public function update(UpdateSlideRequest $request, Slide $slide)
     {
         $slide->update($request->validated());
-        if ($request->hasFile('image')) {
-            $image = ProductController::uploadImage($request, 'image', ['type' => 'srcset 1024w']);
-            $slide->images()->save($image);
+        if ($request->hasFile('desktop_image')) {
+            $slide->getDesktopImage(false)->delete();
+            $desktop_image = ProductController::uploadImage($request, 'desktop_image', ['type' => 'desktop']);
+            $slide->images()->save($desktop_image);
+        }
+        if ($request->hasFile('mobile_image')) {
+            $slide->getMobileImage(false)->delete();
+            $mobile_image = ProductController::uploadImage($request, 'mobile_image', ['type' => 'mobile']);
+            $slide->images()->save($mobile_image);
         }
         cache()->flush();
 

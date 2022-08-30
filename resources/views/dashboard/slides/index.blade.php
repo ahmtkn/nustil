@@ -17,9 +17,14 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
                 @foreach($slides as $slide)
                     <div class="flex flex-col rounded-lg shadow-lg overflow-hidden">
-                        <div class="flex-shrink-0">
-                            <img class="h-48 w-full object-cover" src="{{$slide->image->url}}"
+                        <div class="flex-shrink-0 flex items-center justify-center">
+                            <img class="h-48 w-full object-cover"
+                                 srcset="{{$slide->getMobileImage()}} 480w,
+                                 {{$slide->getDesktopImage()}} 1024w"
+                                 sizes="(max-width: 480px) 480px,
+                                 1024px"
                                  alt="{{$slide->title}}">
+                            <img class="h-48 w-full object-cover" src="{{$slide->getMobileImage()}}">
                         </div>
                         <div class="flex-1 bg-white py-4 px-6 flex flex-col justify-between">
                             <div class="flex items-center justify-between flex-shrink-0">

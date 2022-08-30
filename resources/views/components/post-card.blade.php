@@ -15,19 +15,52 @@
             </a>
 
             <div
-                class="p-2 xl:p-3 flex flex-col justify-between @if($colspan || $sidebar) flex-1 @else relative h-full @endif">
+                class="p-2 xl:p-3 flex flex-col justify-between @if($colspan || $sidebar) flex-1 @else relative min-h-fit lg:h-40 @endif">
                 <div>
+                    <div class="flex items-center gap-1 text-xs">
+                        @foreach($post->categories->take($colspan ? 10 : 1) as $category)
+                            <a href="{{route('blog.category',$category)}}"
+                               class="font-bold text-emerald-600 hover:underline">
+                                {{$category->name}}
+                            </a>
+                            @unless($loop->last)
+                                <span class="text-slate-400 mx-0.5">•</span>
+                            @endunless
+                        @endforeach
+                    </div>
                     <a href="{{$link}}"
                        class="font-bold tracking-tight @if($colspan && !$sidebar) xl:text-lg @endif">
-                        {{\Illuminate\Support\Str::limit($post->title,$colspan?90:40)}}
+                        {{\Illuminate\Support\Str::limit($post->title,40)}}
                     </a>
                     <p class="text-slate-500">
-                        {!! \Illuminate\Support\Str::limit(strip_tags(Str::markdown($post->body)),$colspan && !$sidebar ? 110:50)!!}
+                        {!! \Illuminate\Support\Str::limit(strip_tags(Str::markdown($post->body)),$colspan && !$sidebar ? 90:50)!!}
                     </p>
                 </div>
-                <div>
+                <div
+                    class="relative flex items-center justify-between bottom-0 origin-bottom-center translate scale-90 text-xs">
+                    @if($settings->blog['showPublishedAt'])
+                        <div class="flex items-center text-slate-700/60">
+                            <div class="text-xs mr-2">
+                                <i icon-name="calendar" class="w-3 font-bold"></i>
+                            </div>
+                            <b>{{$post->publishTimeDiff()}}</b>
+                        </div>
+                    @endif
                     @if($settings->blog['showViewCount'])
-                        {{$post->view_count}}
+                        <div class="flex items-center text-slate-700/60 ">
+                            <div class="text-xs mr-2">
+                                <i icon-name="eye" class="w-3 font-bold"></i>
+                            </div>
+                            <b>{{$post->view_count}}</b>
+                        </div>
+                    @endif
+                    @if($settings->blog['showReadTime'])
+                        <div class="flex items-center text-slate-700/60">
+                            <div class="text-xs mr-2">
+                                <i icon-name="hourglass" class="w-3 font-bold"></i>
+                            </div>
+                            <b>{{$post->read_time}} {{__('min')}}</b>
+                        </div>
                     @endif
                 </div>
             </div>

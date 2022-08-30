@@ -38,7 +38,8 @@ class CreateSlideRequest extends FormRequest
             'buttons' => ['sometimes', 'array'],
             'published_at' => ['required', 'date'],
             'expires_at' => ['required', 'date'],
-            'image' => ['required', 'image'],
+            'desktop_image' => ['required', 'image'],
+            'mobile_image' => ['required', 'image'],
             'locale' => ['required', 'string', 'in:'.implode(',', array_keys(getLocales()))],
         ];
     }

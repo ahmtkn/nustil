@@ -45,7 +45,7 @@
             @foreach($posts as $post)
                 <tr class="animate-x" x-data="{post:{{$post->toJson()}}}">
                     <td class="text-center hidden sm:table-cell w-5">
-                        <x-locale-flag :flag="$post->locale"/>
+                        <x-locale-flag class="w-5 mx-auto" :flag="$post->locale"/>
                     </td>
                     <td>{{Str::limit($post->title,40)}}</td>
                     <td class="text-center">{{number_format($post->views())}}</td>

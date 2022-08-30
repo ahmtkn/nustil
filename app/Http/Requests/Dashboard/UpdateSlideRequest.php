@@ -38,7 +38,8 @@ class UpdateSlideRequest extends FormRequest
             'buttons' => ['sometimes', 'array'],
             'published_at' => ['required', 'date'],
             'expires_at' => ['required', 'date'],
-            'image' => ['sometimes', 'image'],
+            'desktop_image' => ['sometimes', 'image'],
+            'mobile_image' => ['sometimes', 'image'],
             'locale' => ['required', 'string','in:'.implode(',',array_keys(getLocales()))],
         ];
     }

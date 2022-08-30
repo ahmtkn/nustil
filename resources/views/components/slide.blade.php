@@ -4,10 +4,12 @@
     @if($itemCount > 1) @if($loop->first) data-carousel-item="active" @else data-carousel-item @endif @endif
 >
 
-    <img data-src="{{$slide->image?->url}}"
-         class="block absolute top-1/2 left-1/2 lazy w-full -translate-x-1/2 -translate-y-1/2"
+    <img data-src="{{$slide->images->get('desktop')->first()->url}}"
+         class="hidden lg:block absolute top-1/2 left-1/2 object-cover lazy w-full -translate-x-1/2 -translate-y-1/2"
          alt="{{$slide->title}}">
-
+    <img data-src="{{$slide->images->get('mobile')->first()->url}}"
+         class="lg:hidden block absolute top-1/2 left-1/2 object-cover lazy w-full -translate-x-1/2 -translate-y-1/2"
+         alt="{{$slide->title}}">
     <div class="relative w-full bg-slate-900/30 h-full flex items-center justify-center flex-col lg:pt-24">
         @if($slide->title)
             <h1 class="text-4xl font-black animate-y font-nunito text-white">{{$slide->title}}</h1>

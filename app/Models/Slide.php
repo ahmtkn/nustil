@@ -59,4 +59,23 @@ class Slide extends Model
         return implode(', ', $srcSet);
     }
 
+    public function getDesktopImage($returnUrl = true)
+    {
+        $img = $this->image()->where('type', 'desktop')->first();
+
+        return $returnUrl ? ($img ? $img->url : '#') : $img;
+    }
+
+    public function getMobileImage($returnUrl = true)
+    {
+        $img = $this->image()->where('type', 'mobile')->first();
+
+        return $returnUrl ? ($img ? $img->url : '#') : $img;
+    }
+
+    public function slideImages()
+    {
+        return $this->images()->get()->groupBy('type');
+    }
+
 }
