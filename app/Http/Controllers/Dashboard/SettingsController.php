@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use Illuminate\Support\Arr;
 use App\Settings\GeneralSettings;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -26,7 +27,8 @@ class SettingsController extends Controller
             }
         }
         $validated = $request->validate($rules);
-        foreach (\array_merge_recursive_distinct($defaults, $validated) as $key => $value) {
+
+        foreach (drupal_array_merge_deep($defaults, $validated) as $key => $value) {
             if (is_array($value)) {
                 foreach ($value as $k => $v) {
                     $v = is_bool($settings->$key[$k]) && $v == 'on' ? true : $v;

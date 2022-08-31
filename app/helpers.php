@@ -123,3 +123,34 @@ if (!function_exists('contrast')) {
         }
     }
 }
+
+
+function drupal_array_merge_deep() {
+    $args = func_get_args();
+    return drupal_array_merge_deep_array($args);
+}
+
+// source : https://api.drupal.org/api/drupal/includes%21bootstrap.inc/function/drupal_array_merge_deep_array/7.x
+function drupal_array_merge_deep_array($arrays) {
+    $result = array();
+    foreach ($arrays as $array) {
+        foreach ($array as $key => $value) {
+            // Renumber integer keys as array_merge_recursive() does. Note that PHP
+            // automatically converts array keys that are integer strings (e.g., '1')
+            // to integers.
+            if (is_integer($key)) {
+                $result[] = $value;
+            }
+            elseif (isset($result[$key]) && is_array($result[$key]) && is_array($value)) {
+                $result[$key] = drupal_array_merge_deep_array(array(
+                    $result[$key],
+                    $value,
+                ));
+            }
+            else {
+                $result[$key] = $value;
+            }
+        }
+    }
+    return $result;
+}
