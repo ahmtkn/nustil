@@ -13,6 +13,7 @@ use App\Routes\Dashboard\BlogRoutes as DashboardBlogRoutes;
 use App\Routes\Dashboard\ImageRoutes;
 use App\Routes\Dashboard\SlideRoutes;
 use App\Http\Controllers\MediaController;
+use App\Routes\Dashboard\RecipeRoutes as DashboardRecipeRoutes;
 use App\Routes\Dashboard\CategoryRoutes as DashboardCategoryRoutes;
 use App\Routes\Dashboard\ProductRoutes as DashboardProductRoutes;
 use Illuminate\Support\Facades\Route;
@@ -50,6 +51,7 @@ Route::group(['prefix' => $localePrefix.'/dashboard/', 'as' => 'dashboard.', 'mi
         CommentRoutes::class,
         ImageRoutes::class,
         DashboardPageRoutes::class,
+        DashboardRecipeRoutes::class,
     ]);
 });
 

@@ -7,4 +7,5 @@ return [
     'new' => 'yeni',
     'popular' => 'populer',
     'search' => 'ara',
+    'recipes' => 'tarifler',
 ];

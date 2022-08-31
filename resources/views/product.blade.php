@@ -161,6 +161,50 @@
             </div>
         </section>
     @endif
+
+    @if($product->recipes->count())
+        <section class="my-4 lg:my-8 bg-slate-100 py-8 animate-y">
+            <div class="container mx-auto px-4 lg:px-0 mb-8">
+                <h2 class="text-emerald-600 font-black select-none font-nunito text-5xl">
+                    {{strtolower(__('Recipes'))}}
+                </h2>
+
+                <div class="grid lg:grid-cols-4 grid-cols-2 gap-4 my-6 lg:my-16">
+                    @foreach($product->recipes as $recipe)
+                        <div
+                            class="max-w-sm bg-white rounded-lg border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+                            <a href="{{route('product.recipe.show',['product'=>$product,'recipe'=>$recipe])}}" class="rounded-t-lg object-cover overflow-hidden">
+                                <img class="object-cover rounded-t-lg w-full h-48"
+                                     src="{{$recipe->image ? $recipe->image->url : asset('img/placeholder.png')}}"
+                                     alt=""/>
+                            </a>
+                            <div class="p-4">
+                                <a href="{{route('product.recipe.show',['product'=>$product,'recipe'=>$recipe])}}">
+                                    <h5 class="mb-2 text-xl font-bold hover:text-emerald-600 tracking-tight text-gray-900 dark:text-white">
+                                        {{$recipe->name}}
+                                    </h5>
+                                </a>
+                                <p class="text-sm text-gray-700 dark:text-gray-400">
+                                    {{Str::limit($recipe->description,130)}}
+                                </p>
+                            </div>
+                        </div>
+                        {{--                        <div--}}
+                        {{--                            class="flex flex-col items-center justify-center shadow-lg w-full h-full mx-auto mb-4 rounded-full bg-emerald-400 sm:w-full sm:h-full">--}}
+                        {{--                            <div class="text-center">--}}
+                        {{--                                <img class="w-full h-full"--}}
+                        {{--                                     --}}
+                        {{--                                     alt="{{$recipe->name}}"/>--}}
+                        {{--                            </div>--}}
+                        {{--                            <div class="text-center">--}}
+                        {{--                                <h6 class="mb-2 font-semibold leading-5 text-white">{{$recipe->name}}</h6>--}}
+                        {{--                            </div>--}}
+                        {{--                        </div>--}}
+                    @endforeach
+                </div>
+            </div>
+        </section>
+    @endif
     <section class="my-4 lg:my-8">
         <div class="container animate-y max-w-[65ch] mx-auto px-4 lg:px-0 mb-8">
             <h2 class="text-nustil-purple font-black select-none font-nunito text-5xl text-right">

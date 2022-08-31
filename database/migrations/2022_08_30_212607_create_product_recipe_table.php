@@ -13,15 +13,10 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('recipes', function (Blueprint $table) {
+        Schema::create('product_recipe', function (Blueprint $table) {
             $table->id();
-            $table->string('locale')->default(app()->getLocale());
-            $table->string('name');
-            $table->string('slug')->unique();
-            $table->string('description')->nullable();
-            $table->text('ingredients')->nullable();
-            $table->text('instructions')->nullable();
-            $table->text('notes')->nullable();
+            $table->foreignId('product_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('recipe_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }
@@ -33,7 +28,7 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('recipes');
+        Schema::dropIfExists('product_recipe');
     }
 
 };

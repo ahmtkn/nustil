@@ -1,6 +1,11 @@
 <?php
 
+use App\Models\Page;
+use App\Models\Recipe;
+use App\Models\Product;
 use App\Models\Category;
+use App\Models\BlogPost;
+use App\Models\BlogCategory;
 use Diglactic\Breadcrumbs\Breadcrumbs;
 use Diglactic\Breadcrumbs\Generator as Trail;
 
@@ -31,12 +36,22 @@ Breadcrumbs::for(__('route.category'), function (Trail $trail, Category $categor
     $trail->push($category->name, route('category.show', $category));
 });
 
-Breadcrumbs::for('page', function (Trail $trail, \App\Models\Page $page) {
+Breadcrumbs::for('recipes', function (Trail $trail, Recipe $recipe) {
+    $trail->parent('landing');
+    $trail->push(__('Products'), route('category.index'));
+;
+    $product = $recipe->products->where('slug', request()->segment(3))->first();
+    $trail->push(Str::limit($product->name,20), route('product.show', $product));
+    $trail->push($recipe->name, route('product.recipe.show', ['product' => $product, "recipe" => $recipe]));
+}
+);
+
+Breadcrumbs::for('page', function (Trail $trail, Page $page) {
     $trail->parent('landing');
     $trail->push($page->title, route('page', $page));
 });
 
-Breadcrumbs::for('post', function (Trail $trail, \App\Models\BlogPost $post) {
+Breadcrumbs::for('post', function (Trail $trail, BlogPost $post) {
     if (!$post->relationLoaded('categories')) {
         $post->load('categories');
     }
@@ -47,7 +62,7 @@ Breadcrumbs::for('post', function (Trail $trail, \App\Models\BlogPost $post) {
     $trail->push($post->title, route('blog.post', ['category' => $post->categories->first(), 'post' => $post]));
 });
 
-Breadcrumbs::for('blog.category', function (Trail $trail, \App\Models\BlogCategory $category) {
+Breadcrumbs::for('blog.category', function (Trail $trail, BlogCategory $category) {
     if (!$category->relationLoaded('ancestors')) {
         $category = cache()->remember(
             'blog_category_'.$category->id.'_ancestors',

@@ -13,6 +13,8 @@ class ProductRoutes implements RouteContract
     {
         Route::group(['prefix' => __('route.product'), 'as' => 'product.'], function () {
             Route::get('{product:slug}', ProductController::class)->name('show');
+            Route::get('{product:slug}/'.__('route.recipes').'/{recipe:slug}', [ProductController::class, 'recipe'])
+                ->name('recipe.show');
         });
     }
 

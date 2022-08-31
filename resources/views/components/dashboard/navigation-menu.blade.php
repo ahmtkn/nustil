@@ -43,6 +43,11 @@
                 <div class="link-icon"><i icon-name="puzzle"></i></div>
                 <div class="link-text">{{__('dashboard.Ingredients')}}</div>
             </x-dashboard.sidebar-link>
+            <x-dashboard.sidebar-link href="{{route('dashboard.recipes.index')}}"
+                                      :active="$route::is('dashboard.recipes.*')">
+                <div class="link-icon"><i icon-name="chef-hat"></i></div>
+                <div class="link-text">{{__('Recipes')}}</div>
+            </x-dashboard.sidebar-link>
         @endcan
         <li class="divider animate-y"></li>
 

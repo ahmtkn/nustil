@@ -7,4 +7,5 @@ return [
     'new' => 'new',
     'popular' => 'popular',
     'search' => 'search',
+    'recipes' => 'recipes',
 ];

@@ -6,6 +6,7 @@ use App\Traits\Viewable;
 use App\Traits\Imageable;
 use App\Traits\Publishable;
 use App\Traits\HasLocalizedItems;
+use App\Models\Pivots\ProductRecipe;
 use App\Models\Pivots\CategoryProduct;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Pivots\NutritionProduct;
@@ -73,6 +74,12 @@ class Product extends Model
         return $this->belongsToMany(Ingredient::class)
             ->using(IngredientProduct::class)
             ->where('locale', app()->getLocale());
+    }
+
+    public function recipes(){
+        return $this->belongsToMany(Recipe::class)
+            ->using(ProductRecipe::class)
+            ->where('locale',app()->getLocale());
     }
 
     /**
