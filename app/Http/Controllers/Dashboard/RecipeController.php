@@ -51,7 +51,7 @@ class RecipeController extends Controller
     {
         $recipe = Recipe::create($request->validated());
         $recipe->products()->attach($request->input('products'));
-        $image = ProductController::uploadImage($request, 'image', ['type' => 'recipe-image']);
+        $image = MediaController::uploadImage($request, 'image', ['type' => 'recipe-image']);
         $recipe->image()->save($image);
         cache()->flush();
 
@@ -88,7 +88,7 @@ class RecipeController extends Controller
         $recipe->update($request->validated());
         if ($request->hasFile('image')) {
             $recipe->image()->delete();
-            $image = ProductController::uploadImage($request, 'image', ['type' => 'recipe-image']);
+            $image = MediaController::uploadImage($request, 'image', ['type' => 'recipe-image']);
             $recipe->image()->save($image);
         }
         $recipe->products()->sync($request->validated('products'));

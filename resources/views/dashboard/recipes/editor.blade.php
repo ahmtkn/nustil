@@ -57,10 +57,11 @@
                                 {{__('Everyline creates a new item in the list')}}
                             </small>
                         </header>
+
                         <textarea name="ingredients"
                                   id="ingredients"
                                   class="form-input"
-                                  rows="7">{{old('ingredients') ?? $editing ? implode("\n",$recipe->ingredients) : ''}}</textarea>
+                                  rows="7">{{old('ingredients') ?? ($editing ? implode("\n",$recipe->ingredients) : '')}}</textarea>
                         <x-error class="text-red-500" field="ingredients"/>
                     </div>
                     {{-- recipe ingredients ends --}}
@@ -75,7 +76,7 @@
                         <textarea name="instructions"
                                   id="instructions"
                                   class="form-input"
-                                  rows="7">{{old('instructions') ?? $editing ? implode("\n",$recipe->instructions) : ''}}</textarea>
+                                  rows="7">{{old('instructions') ?? ($editing ? implode("\n",$recipe->instructions) : '')}}</textarea>
                         <x-error class="text-red-500" field="instructions"/>
                     </div>
                     {{-- recipe instructions ends --}}

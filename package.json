@@ -26,5 +26,7 @@
         "tailwindcss": "^3.0.18",
         "tailwindcss-gradients": "^3.0.0"
     },
-    "dependencies": {}
+    "dependencies": {
+        "@ryangjchandler/alpine-clipboard": "github:ryangjchandler/alpine-clipboard"
+    }
 }

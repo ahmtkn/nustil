@@ -22,7 +22,7 @@ class ProductSeeder extends Seeder
         $products = Product::factory(20)
             ->withNutritions()
             ->withCategories()
-            ->withDummyImage()
+//            ->withDummyImage()
             ->create();
     }
 

@@ -7,6 +7,10 @@
             <div class="link-icon"><i icon-name="home"></i></div>
             <div class="link-text">{{__('Home')}}</div>
         </x-dashboard.sidebar-link>
+        <x-dashboard.sidebar-link :href="route('dashboard.media.index')" :active="$route::is('dashboard.media.*')">
+            <div class="link-icon"><i icon-name="library"></i></div>
+            <div class="link-text">{{__('Media')}}</div>
+        </x-dashboard.sidebar-link>
         @can('users.read')
             <x-dashboard.sidebar-link :href="route('dashboard.users.index')" :active="$route::is('dashboard.users.*')">
                 <div class="link-icon"><i icon-name="users"></i></div>

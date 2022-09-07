@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\BlogPostUpdateRequest;
 use App\Http\Requests\BlogPostCreateRequest;
+use App\Http\Controllers\Dashboard\MediaController;
 use App\Http\Controllers\Dashboard\ProductController;
 
 class PostController extends Controller
@@ -61,7 +62,7 @@ class PostController extends Controller
         $post = BlogPost::create($request->validated() + $published_at);
 
         if ($request->hasFile('image')) {
-            $image = ProductController::uploadImage($request, 'image', ['type' => 'post-thumbnail']);
+            $image = MediaController::uploadImage($request, 'image', ['type' => 'post-thumbnail']);
             $post->image()->save($image);
         }
 
@@ -89,7 +90,7 @@ class PostController extends Controller
     {
         if ($post->image()->exists() && $request->hasFile('image')) {
             $post->image()->delete();
-            $image = ProductController::uploadImage($request, 'image', ['type' => 'post-thumbnail']);
+            $image = MediaController::uploadImage($request, 'image', ['type' => 'post-thumbnail']);
             $post->image()->save($image);
         }
         $published_at = $request->validated('status') == 'published' && $post->published_at == null

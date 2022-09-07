@@ -7,6 +7,8 @@ use App\Routes\CategoryRoutes;
 use App\Helpers\LocalizationHelper;
 use App\Routes\Dashboard\MenuRoutes;
 use App\Routes\Dashboard\UserRoutes;
+use App\Routes\Dashboard\MediaRoutes;
+use App\Http\Controllers\PageController;
 use App\Routes\Dashboard\PageRoutes as DashboardPageRoutes;
 use App\Routes\Dashboard\CommentRoutes;
 use App\Routes\Dashboard\BlogRoutes as DashboardBlogRoutes;
@@ -39,21 +41,23 @@ $localePrefix = LocalizationHelper::prefix((string)(Request::segment(1)));
 
 //Dashboard Routes
 Route::view($localePrefix.'/dashboard', 'dashboard')->middleware(['auth'])->name('dashboard');
-Route::group(['prefix' => $localePrefix.'/dashboard/', 'as' => 'dashboard.', 'middleware' => 'auth'], function () {
-    Organizer::register([
-        MenuRoutes::class,
-        UserRoutes::class,
-        DashboardCategoryRoutes::class,
-        DashboardProductRoutes::class,
-        DashboardBlogRoutes::class,
-        SlideRoutes::class,
-        SettingsRoutes::class,
-        CommentRoutes::class,
-        ImageRoutes::class,
-        DashboardPageRoutes::class,
-        DashboardRecipeRoutes::class,
-    ]);
-});
+Route::group(['prefix' => $localePrefix.'/dashboard/', 'as' => 'dashboard.', 'middleware' => 'auth'],
+    routes: function () {
+        Organizer::register([
+            MenuRoutes::class,
+            UserRoutes::class,
+            DashboardCategoryRoutes::class,
+            DashboardProductRoutes::class,
+            DashboardBlogRoutes::class,
+            SlideRoutes::class,
+            SettingsRoutes::class,
+            CommentRoutes::class,
+            ImageRoutes::class,
+            DashboardPageRoutes::class,
+            DashboardRecipeRoutes::class,
+            MediaRoutes::class,
+        ]);
+    });
 
 //Public Routes
 Route::group(['prefix' => $localePrefix], function () {
@@ -64,7 +68,7 @@ Route::group(['prefix' => $localePrefix], function () {
         BlogRoutes::class,
     ]);
     require __DIR__.'/auth.php';
-    Route::get('{page:slug}', \App\Http\Controllers\PageController::class)->name('page');
+    Route::get('{page:slug}', PageController::class)->name('page');
 });
 Route::get('media/{image:token}', MediaController::class)->name('media');
 

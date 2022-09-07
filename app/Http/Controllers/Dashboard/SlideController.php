@@ -28,8 +28,8 @@ class SlideController extends Controller
     public function store(CreateSlideRequest $request)
     {
         $slide = Slide::create($request->validated());
-        $desktop_image = ProductController::uploadImage($request, 'desktop_image', ['type' => 'desktop']);
-        $mobile_image = ProductController::uploadImage($request, 'mobile_image', ['type' => 'mobile']);
+        $desktop_image = MediaController::uploadImage($request, 'desktop_image', ['type' => 'desktop']);
+        $mobile_image = MediaController::uploadImage($request, 'mobile_image', ['type' => 'mobile']);
         $slide->images()->saveMany([$desktop_image, $mobile_image]);
         cache()->flush();
 
@@ -46,12 +46,12 @@ class SlideController extends Controller
         $slide->update($request->validated());
         if ($request->hasFile('desktop_image')) {
             $slide->getDesktopImage(false)->delete();
-            $desktop_image = ProductController::uploadImage($request, 'desktop_image', ['type' => 'desktop']);
+            $desktop_image = MediaController::uploadImage($request, 'desktop_image', ['type' => 'desktop']);
             $slide->images()->save($desktop_image);
         }
         if ($request->hasFile('mobile_image')) {
             $slide->getMobileImage(false)->delete();
-            $mobile_image = ProductController::uploadImage($request, 'mobile_image', ['type' => 'mobile']);
+            $mobile_image = MediaController::uploadImage($request, 'mobile_image', ['type' => 'mobile']);
             $slide->images()->save($mobile_image);
         }
         cache()->flush();

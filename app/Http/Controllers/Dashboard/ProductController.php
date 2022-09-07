@@ -39,7 +39,7 @@ class ProductController extends Controller
     public function store(ProductStoreRequest $request)
     {
         $data = array_filter_recursive($request->validated());
-        $image = self::uploadImage($request, 'image', ['type' => 'product-image']);
+        $image = MediaController::uploadImage($request, 'image', ['type' => 'product-image']);
         $product = Product::create($data);
         $product->image()->save($image);
         if (isset($data['ingredients'])) {
@@ -61,7 +61,7 @@ class ProductController extends Controller
         $data = array_filter_recursive($request->validated());
 
         if ($request->hasFile('image')) {
-            $image = self::uploadImage($request, 'image', ['type' => 'product-image']);
+            $image = MediaController::uploadImage($request, 'image', ['type' => 'product-image']);
             $product->image()->save($image);
         }
         $product->update($data);
@@ -79,24 +79,6 @@ class ProductController extends Controller
         cache()->flush();
 
         return redirect()->route('dashboard.products.edit', $product)->with('message', 'Product updated successfully');
-    }
-
-    public static function uploadImage(FormRequest $request, string $fieldName, array $options = [])
-    {
-        $file = $request->file($fieldName);
-        $dir = $options['dir'] ?? 'uploads';
-        $options = array_merge($options, ['extra' => ['visiblity' => $options['extra']['visibility'] ?? 'public']]);
-        $name = \Str::uuid().'.'.$file->getClientOriginalExtension();
-        $file->storeAs($dir, $name, $options['extra']);
-        $image = Image::create([
-            'name' => $options['name'] ?? $name,
-            'path' => $dir.DIRECTORY_SEPARATOR.$name,
-            'type' => $options['type'] ?? ($request->has('type') ? $request->validated('type') : null),
-            'mime_type' => $file->getMimeType(),
-        ]);
-        cache()->flush();
-
-        return $image;
     }
 
     public function destroy(Product $product)

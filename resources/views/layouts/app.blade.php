@@ -93,8 +93,8 @@
                        color="blue">
         {{session()->get('message')}}
     </x-dashboard.toast>
-
 @endif
+<div class="fixed inset-x-0 top-0 z-[5000]" id="notifArea"></div>
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.8/dist/lazyload.min.js"></script>
