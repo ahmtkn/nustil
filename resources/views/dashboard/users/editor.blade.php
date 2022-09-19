@@ -85,13 +85,16 @@
                                 @endif
                                 @foreach($roles as $role)
                                     <option
-                                        value="{{$role->id}}" @selected(!$isNew && $user->getRoleNames()->last() == $role->name)>{{$role->name}}</option>
+                                        value="{{$role->id}}"
+                                        {{!$isNew && $user->getRoleNames()->last() == $role->name ? 'selected' : ''}}>
+                                        {{$role->name}}
+                                    </option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="p-4 w-full grid md:grid-cols-2 xl:grid-cols-3">
                             @foreach($permissions as $permission)
-                                @php($group = Str::title(explode('.',$permission->name)[0]))
+                                @php($group = \Illuminate\Support\Str::title(explode('.',$permission->name)[0]))
                                 @php($permGroup[$group][] = $permission)
                             @endforeach
                             @foreach($permGroup as $group => $perms)
@@ -112,7 +115,7 @@
                                                                }
                                                                return true;
                                                            }) !== undefined"
-                                                           @checked(!$isNew && $user->hasPermissionTo($perm) || ($user->hasAnyRole($roles) && $user->roles->last()->hasPermissionTo($perm)))
+                                                           {{!$isNew && $user->hasPermissionTo($perm) || ($user->hasAnyRole($roles) && $user->roles->last()->hasPermissionTo($perm)) ? 'checked' : ''}}
                                                            class="w-4 h-4 text-emerald-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                                     <label for="permission.{{$perm->name}}"
                                                            class="ml-2 text-sm font-regular text-gray-900 dark:text-gray-300">

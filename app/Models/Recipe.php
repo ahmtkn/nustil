@@ -12,7 +12,10 @@ use Illuminate\Database\Eloquent\Model;
 class Recipe extends Model
 {
 
-    use HasFactory, Viewable, Imageable, HasLocalizedItems;
+    use Viewable;
+    use Imageable;
+    use HasFactory;
+    use HasLocalizedItems;
 
     protected $fillable = [
         'name',

@@ -122,7 +122,7 @@
                                 <optgroup label="{{__($locale)}}">
                                     @foreach($categories as $category)
                                         <option value="{{$category->id}}"
-                                            @selected(in_array($category->id,old('categories')??[]) || $product->categories->contains($category))>
+                                            {{in_array($category->id,old('categories')??[]) || $product->categories->contains($category) ? 'selected' : ''}}>
                                             {{$category->name}}
                                         </option>
                                         @if($category->has('children'))
@@ -149,10 +149,10 @@
                     <div class="flex items-center justify-between gap-4">
                         <b class="font-semibold">{{__('Locale')}}</b>
                         <select name="locale" class="form-input">
-                            <option disabled @selected(!$editing)>{{__('Please choose one')}}</option>
+                            <option disabled {{!$editing ? 'selected' : ''}}>{{__('Please choose one')}}</option>
                             @foreach(getLocales() as $short => $locale)
                                 <option value="{{$short}}"
-                                    @selected($short == old('locale') || $product->locale == $short)>
+                                    {{$short== old('locale') || $product->locale == $short ? 'selected' : ''}}>
                                     {{__($locale)}}
                                 </option>
                             @endforeach
@@ -198,7 +198,8 @@
                                 <optgroup label="{{__($locale)}}">
                                     @foreach($ingredients as $ingredient)
                                         <option value="{{$ingredient->id}}"
-                                            @selected(in_array($ingredient->id,old('ingredients') ?? []) || $product->ingredients->contains($ingredient->id)) >
+                                            {{in_array($ingredient->id,old('ingredients') ?? []) ||
+                                        $product->ingredients->contains($ingredient->id)  ? 'selected' : ''}} >
                                             {{__($ingredient->name)}}
                                         </option>
                                     @endforeach

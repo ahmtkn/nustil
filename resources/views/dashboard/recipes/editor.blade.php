@@ -140,10 +140,10 @@
                         <label for="locale">{{__('Locale')}}</label>
                     </header>
                     <select name="locale" class="form-input">
-                        <option disabled @selected(is_null($recipe->id))>{{__('Please choose one')}}</option>
+                        <option disabled {{is_null($recipe->id) ? 'selected' : ''}}>{{__('Please choose one')}}</option>
                         @foreach(getLocales() as $short => $lcl)
                             <option value="{{$short}}"
-                                @selected($recipe->locale == $short)>{{$lcl}}</option>
+                                {{$recipe->locale == $short ? 'selected' : ''}}>{{$lcl}}</option>
                         @endforeach
                     </select>
                     <x-error class="text-red-500" field="locale"/>
@@ -161,7 +161,7 @@
                             <optgroup label="{{__($lcl)}}">
                                 @foreach($prds as $product)
                                     <option value="{{$product->id}}"
-                                        @selected(in_array($product->id,$recipe->products->pluck('id')->toArray()))>
+                                        {{in_array($product->id,$recipe->products->pluck('id')->toArray())  ? 'selected' : ''}}>
                                         {{Str::limit($product->name,20)}}
                                         &emsp;({{$product->weight}}gr.)
                                     </option>

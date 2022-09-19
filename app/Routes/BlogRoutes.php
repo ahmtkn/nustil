@@ -5,9 +5,9 @@ namespace App\Routes;
 use App\Models\BlogPost;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogController;
-use Uutkukorkmaz\RouteOrganizer\Contracts\RouteContract;
+use Uutkukorkmaz\RouteOrganizer\RegistersRouteGroup;
 
-class BlogRoutes implements RouteContract
+class BlogRoutes implements RegistersRouteGroup
 {
 
     public static function register(): void

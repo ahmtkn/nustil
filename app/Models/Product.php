@@ -17,7 +17,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Product extends Model
 {
 
-    use HasFactory, HasLocalizedItems, Imageable, Publishable, Viewable;
+    use Viewable;
+    use Imageable;
+    use HasFactory;
+    use Publishable;
+    use HasLocalizedItems;
 
 
     protected $fillable = [
@@ -38,25 +42,16 @@ class Product extends Model
     public static function boot()
     {
         parent::boot();
-        static::addGlobalScope(new CurrentLocaleScope);
+        static::addGlobalScope(new CurrentLocaleScope());
     }
 
-    /**
-     * Get the categories of the product.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
     public function categories()
     {
         return $this->belongsToMany(Category::class)
             ->using(CategoryProduct::class);
     }
 
-    /**
-     * Get the nutritions for the product.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
+
     public function nutritions()
     {
         return $this->belongsToMany(Nutrition::class)
@@ -64,11 +59,6 @@ class Product extends Model
             ->withPivot('value');
     }
 
-    /**
-     * Get the ingredients for the product.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
     public function ingredients()
     {
         return $this->belongsToMany(Ingredient::class)
@@ -82,21 +72,13 @@ class Product extends Model
             ->where('locale',app()->getLocale());
     }
 
-    /**
-     * Get the image of the product.
-     *
-     * @return string
-     */
+
     public function getImage(): string
     {
-        return $this->image?->url ?? asset('img/placeholder.png');
+        return $this->image ? $this->image->url : asset('img/placeholder.png');
     }
 
-    /**
-     * Is the product gluten free?
-     *
-     * @return bool
-     */
+
     public function isGlutenFree(): bool
     {
         if (!$this->relationLoaded('ingredients')) {

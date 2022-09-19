@@ -4,9 +4,9 @@ namespace App\Routes;
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
-use Uutkukorkmaz\RouteOrganizer\Contracts\RouteContract;
 
-class ProductRoutes implements RouteContract
+
+class ProductRoutes implements \Uutkukorkmaz\RouteOrganizer\RegistersRouteGroup
 {
 
     public static function register(): void

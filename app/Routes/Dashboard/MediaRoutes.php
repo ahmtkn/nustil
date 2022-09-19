@@ -5,9 +5,9 @@ namespace App\Routes\Dashboard;
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\MediaController;
-use Uutkukorkmaz\RouteOrganizer\Contracts\RouteContract;
 
-class MediaRoutes implements RouteContract {
+
+class MediaRoutes implements \Uutkukorkmaz\RouteOrganizer\RegistersRouteGroup {
 
     public static function register(): void {
         Route::group(['prefix' => 'media', 'as' => 'media.'], function () {

@@ -3,13 +3,10 @@
 namespace Database\Seeders;
 
 use App\Models\Nutrition;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class NutritionSeeder extends Seeder
 {
-
-    use WithoutModelEvents;
 
     /**
      * Run the database seeds.

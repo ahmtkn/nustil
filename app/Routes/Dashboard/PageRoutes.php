@@ -5,9 +5,9 @@ namespace App\Routes\Dashboard;
 use App\Models\Page;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\PageController;
-use Uutkukorkmaz\RouteOrganizer\Contracts\RouteContract;
 
-class PageRoutes implements RouteContract
+
+class PageRoutes implements \Uutkukorkmaz\RouteOrganizer\RegistersRouteGroup
 {
 
     public static function register(): void

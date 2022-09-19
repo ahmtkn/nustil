@@ -36,10 +36,10 @@
                         {{__('Locale')}}
                     </label>
                     <select name="locale" class="form-input">
-                        <option disabled @selected(is_null($category->id))>{{__('Please choose one')}}</option>
+                        <option disabled {{is_null($category->id) ? 'selected' : ''}}>{{__('Please choose one')}}</option>
                         @foreach(getLocales() as $short => $locale)
                             <option value="{{$short}}"
-                                @selected($short == old('locale') || $category->locale == $short)>
+                                    {{$short== old('locale') || $category->locale == $short  ? 'selected' : ''}}>
                                 {{__($locale)}}
                             </option>
                         @endforeach
@@ -52,12 +52,12 @@
                     </label>
                     <select name="parent_id" class="form-input">
                         <option value=""
-                            @selected(is_null($category->id) || is_null($category->parent_id))>
+                                {{is_null($category->id) || is_null($category->parent_id) ? 'selected' : ''}}>
                             {{__('None')}}
                         </option>
                         @foreach(App\Models\BlogCategory::with('descendants')->onlyParents()->get() as $ctg)
                             <option value="{{$ctg->id}}"
-                                @selected($ctg->id == old('parent_id') || $ctg->id == $category->parent_id)>
+                                    {{$ctg->id == old('parent_id') || $ctg->id == $category->parent_id  ? 'selected' : ''}}>
                                 {{$ctg->name}}
                             </option>
                             @if($ctg->descendants->count())

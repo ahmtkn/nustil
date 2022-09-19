@@ -6,10 +6,9 @@ use App\Models\BlogPost;
 use App\Models\BlogCategory;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\Blog\PostController;
-use Uutkukorkmaz\RouteOrganizer\Contracts\RouteContract;
 use App\Http\Controllers\Dashboard\Blog\CategoryController;
 
-class BlogRoutes implements RouteContract
+class BlogRoutes implements \Uutkukorkmaz\RouteOrganizer\RegistersRouteGroup
 {
 
     public static function register(): void

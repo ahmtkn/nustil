@@ -13,7 +13,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Category extends Model
 {
 
-    use HasFactory, HasLocalizedItems, HasChildren;
+    use HasFactory;
+    use HasChildren;
+    use HasLocalizedItems;
 
     /**
      * The attributes that are mass assignable.
@@ -32,7 +34,7 @@ class Category extends Model
     {
         parent::boot();
 
-        static::addGlobalScope(new CurrentLocaleScope);
+        static::addGlobalScope(new CurrentLocaleScope());
     }
 
     /**

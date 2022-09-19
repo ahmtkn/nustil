@@ -12,11 +12,15 @@ use Illuminate\Routing\Controller as BaseController;
 class Controller extends BaseController
 {
 
-    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+    use DispatchesJobs;
+    use ValidatesRequests;
+    use AuthorizesRequests;
 
+    public GeneralSettings $settings;
 
-    public function __construct(public GeneralSettings $settings)
+    public function __construct(GeneralSettings $settings)
     {
+        $this->settings = $settings;
     }
 
 

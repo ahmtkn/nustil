@@ -10,7 +10,8 @@ use Illuminate\Database\Eloquent\Builder;
 class Slide extends Model
 {
 
-    use Imageable, HasLocalizedItems;
+    use Imageable;
+    use HasLocalizedItems;
 
     protected $fillable = [
         'title',
