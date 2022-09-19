@@ -4,9 +4,9 @@ namespace App\Routes\Dashboard;
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\RecipeController;
-use Uutkukorkmaz\RouteOrganizer\Contracts\RouteContract;
 
-class RecipeRoutes implements RouteContract {
+
+class RecipeRoutes implements \Uutkukorkmaz\RouteOrganizer\RegistersRouteGroup {
 
     public static function register(): void {
         Route::resource('recipes',RecipeController::class)->except('show');

@@ -55,10 +55,10 @@
                         <label for="locale">{{__('Locale')}}</label>
                     </header>
                     <select name="locale" class="form-input">
-                        <option disabled @selected(is_null($post->id))>{{__('Please choose one')}}</option>
+                        <option disabled {{is_null($post->id) ? 'selected' : ''}}>{{__('Please choose one')}}</option>
                         @foreach(getLocales() as $short => $locale)
                             <option value="{{$short}}"
-                                @selected($short == old('locale') || $post->locale == $short)>
+                                    {{$short== old('locale') || $post->locale == $short ? 'selected' : ''}}>
                                 {{__($locale)}}
                             </option>
                         @endforeach
@@ -80,7 +80,8 @@
                             <optgroup label="{{__($postLocale)}}">
                                 @foreach($categories as $ctg)
                                     <option value="{{$ctg->id}}"
-                                        @selected(in_array($ctg->id, old('categories') ?? []) || $post->categories->contains($ctg))>
+                                            {{in_array($ctg->id, old('categories') ?? []) ||
+                                        $post->categories->contains($ctg)  ? 'selected' : ''}}>
                                         {{$ctg->name}}
                                     </option>
                                     @if($ctg->descendants->count())

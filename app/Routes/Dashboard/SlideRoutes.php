@@ -4,9 +4,9 @@ namespace App\Routes\Dashboard;
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\SlideController;
-use Uutkukorkmaz\RouteOrganizer\Contracts\RouteContract;
 
-class SlideRoutes implements RouteContract
+
+class SlideRoutes implements \Uutkukorkmaz\RouteOrganizer\RegistersRouteGroup
 {
 
     public static function register(): void

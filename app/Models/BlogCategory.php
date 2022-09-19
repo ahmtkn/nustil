@@ -11,7 +11,9 @@ use Illuminate\Database\Eloquent\Model;
 class BlogCategory extends Model
 {
 
-    use HasFactory, HasLocalizedItems, HasChildren;
+    use HasFactory;
+    use HasChildren;
+    use HasLocalizedItems;
 
     protected $fillable = [
         'name',

@@ -4,9 +4,9 @@ namespace App\Routes\Dashboard;
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\MenuController;
-use Uutkukorkmaz\RouteOrganizer\Contracts\RouteContract;
 
-class MenuRoutes implements RouteContract
+
+class MenuRoutes implements \Uutkukorkmaz\RouteOrganizer\RegistersRouteGroup
 {
 
     public static function register(): void

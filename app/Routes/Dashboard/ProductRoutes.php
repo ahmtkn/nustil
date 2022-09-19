@@ -4,10 +4,10 @@ namespace App\Routes\Dashboard;
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\ProductController;
-use Uutkukorkmaz\RouteOrganizer\Contracts\RouteContract;
+
 use App\Http\Controllers\Dashboard\IngredientController;
 
-class ProductRoutes implements RouteContract
+class ProductRoutes implements \Uutkukorkmaz\RouteOrganizer\RegistersRouteGroup
 {
 
     public static function register(): void

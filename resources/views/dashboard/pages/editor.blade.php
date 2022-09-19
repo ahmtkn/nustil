@@ -55,10 +55,10 @@
                         <label for="locale">{{__('Locale')}}</label>
                     </header>
                     <select name="locale" class="form-input">
-                        <option disabled @selected(is_null($page->id))>{{__('Please choose one')}}</option>
+                        <option disabled {{is_null($page->id) ? 'selected' : ''}}>{{__('Please choose one')}}</option>
                         @foreach(getLocales() as $short => $lcl)
                             <option value="{{$short}}"
-                                @selected($page->locale === $short)>{{$lcl}}</option>
+                                    {{$page->locale === $short ? 'selected' : ''}}>{{$lcl}}</option>
                         @endforeach
                     </select>
                     <x-error class="text-red-500" field="locale"/>

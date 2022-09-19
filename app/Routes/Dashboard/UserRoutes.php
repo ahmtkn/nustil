@@ -4,9 +4,8 @@ namespace App\Routes\Dashboard;
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\UserController;
-use Uutkukorkmaz\RouteOrganizer\Contracts\RouteContract;
 
-class UserRoutes implements RouteContract
+class UserRoutes implements \Uutkukorkmaz\RouteOrganizer\RegistersRouteGroup
 {
 
     public static function register(): void

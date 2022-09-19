@@ -13,7 +13,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Menu extends Model
 {
 
-    use HasFactory, HasLocalizedItems;
+    use HasFactory;
+    use HasLocalizedItems;
 
     protected $fillable = [
         'method',
@@ -33,10 +34,10 @@ class Menu extends Model
     {
         parent::boot();
 
-        static::addGlobalScope(new MenuOrderScope);
+        static::addGlobalScope(new MenuOrderScope());
     }
 
-    public function scopeGroup(Builder $builder, null|string $group = null)
+    public function scopeGroup(Builder $builder, ?string $group = null)
     {
         return $builder->where('group', $group);
     }

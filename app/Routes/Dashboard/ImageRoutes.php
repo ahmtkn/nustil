@@ -4,9 +4,9 @@ namespace App\Routes\Dashboard;
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ImageController;
-use Uutkukorkmaz\RouteOrganizer\Contracts\RouteContract;
 
-class ImageRoutes implements RouteContract
+
+class ImageRoutes implements \Uutkukorkmaz\RouteOrganizer\RegistersRouteGroup
 {
 
     public static function register(): void

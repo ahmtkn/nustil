@@ -2,24 +2,28 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
 use App\Traits\Viewable;
 use App\Traits\Imageable;
 use App\Traits\Commentable;
 use App\Traits\Publishable;
-use Illuminate\Support\Str;
 use App\Traits\HasLocalizedItems;
 use App\Models\Scopes\CurrentLocaleScope;
 use App\Models\Pivots\BlogCategoryBlogPost;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class BlogPost extends Model
 {
 
-    use HasFactory, SoftDeletes, Commentable, Publishable, HasLocalizedItems, Viewable, Imageable;
+    use Viewable;
+    use Imageable;
+    use HasFactory;
+    use Publishable;
+    use SoftDeletes;
+    use Commentable;
+    use HasLocalizedItems;
 
     protected $fillable = [
         'title',
@@ -49,7 +53,7 @@ class BlogPost extends Model
     /**
      * Get the categories of the post.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return BelongsToMany
      */
     public function categories()
     {
@@ -57,11 +61,9 @@ class BlogPost extends Model
             ->using(BlogCategoryBlogPost::class);
     }
 
-    public function readTime(): Attribute
+    public function getReadTimeAttribute()
     {
-        return new Attribute(get: function () {
-            return $this->body ? ceil(str_word_count($this->body) / 200) : 0;
-        });
+        return $this->body ? ceil(str_word_count($this->body) / 200) : 0;
     }
 
     public function publishTimeDiff()

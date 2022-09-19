@@ -405,7 +405,7 @@ class ArrayNotationHelper implements ArrayAccess, Countable, IteratorAggregate, 
      *
      * @return void
      */
-    public function offsetUnset(mixed $key): void
+    public function offsetUnset($key): void
     {
         $this->delete($key);
     }

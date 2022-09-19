@@ -1,7 +1,7 @@
 @php($generation = $generation ?? 1)
 @php($editing = $editing ?? false)
 <option value="{{$category->id}}"
-    @selected($category->id == old('parent_id') || ($editing && $category->id == $editing->parent_id))>
+        {{$category->id == old('parent_id') || ($editing && $category->id == $editing->parent_id)  ? 'selected' : ''}}>
     ⌞ @for($i=0;$i<($generation-1);$i++) — @endfor
     &emsp;{{$category->name}}
 </option>

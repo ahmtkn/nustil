@@ -31,10 +31,10 @@
                         {{__('Locale')}}
                     </label>
                     <select name="locale" class="form-input">
-                        <option disabled @selected(!$editing)>{{__('Please choose one')}}</option>
+                        <option disabled {{!$editing ? 'selected' : ''}}>{{__('Please choose one')}}</option>
                         @foreach(getLocales() as $short => $locale)
                             <option value="{{$short}}"
-                                @selected(old('locale') == $ingredient->locale || $ingredient->locale == $short)>
+                                {{old('locale') == $ingredient->locale || $ingredient->locale == $short  ? 'selected' : ''}}>
                                 {{$locale}}
                             </option>
                         @endforeach

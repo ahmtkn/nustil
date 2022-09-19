@@ -3,10 +3,10 @@
 if (!function_exists('getLocales')) {
     function getLocales()
     {
-        $striped = array_diff(scandir(base_path('/lang')), ['..', '.']);
+        $striped = array_diff(scandir(base_path('resources/lang')), ['..', '.']);
         $output = [];
         foreach ($striped as $lang) {
-            if (is_dir(base_path('/lang/'.$lang))) {
+            if (is_dir(base_path('resources/lang/'.$lang))) {
                 $output[$lang] = __($lang);
             }
         }

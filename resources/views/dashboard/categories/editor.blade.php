@@ -29,17 +29,18 @@
                            value="{{old('name') ?? $category->name}}"
                            required
                            autofocus/>
-                   <x-error field="name"/>
+                    <x-error field="name"/>
                 </div>
                 <div class="mb-4">
                     <label class="form-label" for="locale">
                         {{__('Locale')}}
                     </label>
                     <select name="locale" class="form-input">
-                        <option disabled @selected(is_null($category->id))>{{__('Please choose one')}}</option>
+                        <option
+                            disabled {{is_null($category->id) ? 'selected' : ''}}>{{__('Please choose one')}}</option>
                         @foreach(getLocales() as $short => $locale)
                             <option value="{{$short}}"
-                                @selected($short == old('locale') || $category->locale == $short)>
+                                {{$short== old('locale') || $category->locale == $short ? 'checked' :''}}>
                                 {{__($locale)}}
                             </option>
                         @endforeach
@@ -52,12 +53,12 @@
                     </label>
                     <select name="parent_id" class="form-input">
                         <option value=""
-                            @selected(is_null($category->id) || is_null($category->parent_id))>
+                                {{is_null($category->id) || is_null($category->parent_id) ? 'selected' : ''}}>
                             {{__('None')}}
                         </option>
                         @foreach(App\Models\Category::with('descendants')->onlyParents()->get() as $ctg)
                             <option value="{{$ctg->id}}"
-                                @selected($ctg->id == old('parent_id') || $ctg->id == $category->parent_id)>
+                                    {{$ctg->id == old('parent_id') || $ctg->id == $category->parent_id  ? 'selected' : ''}}>
                                 {{$ctg->name}}
                             </option>
                             @if($ctg->descendants->count())
@@ -67,7 +68,7 @@
                             @endif
                         @endforeach
                     </select>
-                    <x-error field="parent_id" />
+                    <x-error field="parent_id"/>
                 </div>
                 <div class="mb-4">
                     <label class="form-label" for="description">
@@ -77,7 +78,7 @@
                               id="description"
                               name="description"
                               rows="3">{{old('description') ?? $category->description}}</textarea>
-                    <x-error field="description" />
+                    <x-error field="description"/>
                 </div>
                 <div class="flex items-center justify-end">
                     <button class="btn btn-emerald" type="submit">

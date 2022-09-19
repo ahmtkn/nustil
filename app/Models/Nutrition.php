@@ -14,6 +14,8 @@ class Nutrition extends Model
         'parent_id',
     ];
 
+    protected $table = "nutritions";
+
 
     protected static function convert($from, $to, $value, $decimals = 1)
     {

@@ -4,9 +4,9 @@ namespace App\Routes;
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
-use Uutkukorkmaz\RouteOrganizer\Contracts\RouteContract;
 
-class PageRoutes implements RouteContract
+
+class PageRoutes implements \Uutkukorkmaz\RouteOrganizer\RegistersRouteGroup
 {
 
     public static function register(): void

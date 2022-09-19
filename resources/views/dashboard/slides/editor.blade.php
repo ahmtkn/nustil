@@ -98,10 +98,10 @@
                     <label for="locale" class="form-label">{{__('Locale')}}</label>
                     <select name="locale" id="locale" class="form-input">
                         <option disabled
-                                value="" @selected(is_null($slide->locale))>{{__('Please choose one')}}</option>
+                                value="" {{is_null($slide->locale) ? 'selected' : ''}}>{{__('Please choose one')}}</option>
                         @foreach(getLocales() as $lcl => $name)
                             <option value="{{$lcl}}"
-                                @selected(old('locale') == $lcl || $slide->locale == $lcl)>
+                                    {{old('locale') == $lcl || $slide->locale == $lcl  ? 'selected' : ''}}>
                                 {{__($lcl)}}
                             </option>
                         @endforeach
@@ -141,7 +141,8 @@
                             {{-- Tailwindcss colors --}}
                             @foreach($colors as $color)
                                 <option value="{{$color}}"
-                                        class="bg-{{$color}}-500" @selected(old('button.color') == $color || ($slide->buttons[0]['color'] ?? '') == $color)>{{Str::ucfirst($color)}}</option>
+                                        class="bg-{{$color}}-500" {{old(
+                            'button.color') == $color || ($slide->buttons[0]['color'] ?? '') == $color ? 'selected' : ''}}>{{Str::ucfirst($color)}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -157,12 +158,12 @@
                         <select class="form-input" name="button[target]" id="buttonTarget">
                             <option
                                 value="_self"
-                                @selected(old('button.target') == '_self' || ($slide->buttons[0]['target'] ?? '') == '_self')>
+                                {{old('button.target') == '_self' || ($slide->buttons[0]['target'] ?? '') == '_self'  ? 'selected' : ''}}>
                                 {{__('Same Window')}}
                             </option>
                             <option
                                 value="_blank"
-                                @selected(old('button.target') == '_blank' || ($slide->buttons[0]['target'] ?? '') == '_blank')>
+                                {{old('button.target') == '_blank' || ($slide->buttons[0]['target'] ?? '') == '_blank' ? 'selected' : ''}}>
                                 {{__('New Window')}}
                             </option>
                         </select>

@@ -12,7 +12,11 @@ use Illuminate\Database\Eloquent\Model;
 class Page extends Model
 {
 
-    use HasFactory, HasLocalizedItems, Publishable, SoftDeletes, Viewable;
+    use Viewable;
+    use HasFactory;
+    use SoftDeletes;
+    use Publishable;
+    use HasLocalizedItems;
 
     protected $fillable = [
         'locale',

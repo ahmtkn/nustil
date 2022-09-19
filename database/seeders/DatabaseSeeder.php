@@ -9,7 +9,6 @@ use Spatie\Permission\Models\Role;
 use Spatie\LaravelSettings\Settings;
 use Spatie\Permission\Models\Permission;
 use Symfony\Component\Console\Output\ConsoleOutput;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
