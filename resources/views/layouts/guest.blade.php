@@ -7,7 +7,7 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
     @if(config('app.env') != 'production')
-    <meta name="robots" content="noindex,nofollow">
+        <meta name="robots" content="noindex,nofollow">
     @endif
     <!-- Fonts -->
     <link
