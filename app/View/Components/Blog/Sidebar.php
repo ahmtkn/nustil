@@ -10,11 +10,11 @@ use Illuminate\Contracts\View\View;
 class Sidebar extends Component
 {
 
-    public mixed $posts;
+    public $posts;
 
-    public mixed $categories;
+    public $categories;
 
-    public mixed $popularPosts;
+    public $popularPosts;
 
     public function __construct()
     {

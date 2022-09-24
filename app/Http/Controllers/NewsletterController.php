@@ -9,9 +9,12 @@ use App\Http\Requests\NewsletterSubscriptionRequest;
 class NewsletterController extends Controller
 {
 
-    public function __construct(public GeneralSettings $settings)
+    public GeneralSettings $settings;
+
+    public function __construct(GeneralSettings $settings)
     {
-        parent::__construct();
+        $this->settings = $settings;
+        parent::__construct($settings);
     }
 
     public function subscribe(NewsletterSubscriptionRequest $request){

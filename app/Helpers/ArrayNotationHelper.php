@@ -25,7 +25,7 @@ class ArrayNotationHelper implements ArrayAccess, Countable, IteratorAggregate, 
         }
     }
 
-    protected function getArrayItems(mixed $items)
+    protected function getArrayItems($items)
     {
         return $items instanceof self ? $items->all() : (array)$items;
     }
@@ -423,7 +423,7 @@ class ArrayNotationHelper implements ArrayAccess, Countable, IteratorAggregate, 
      *
      * @return int
      */
-    public function count(mixed $key = null): int
+    public function count($key = null): int
     {
         return count($this->get($key));
     }
