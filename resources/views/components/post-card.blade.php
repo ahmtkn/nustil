@@ -10,7 +10,7 @@
             <a
                 href="{{$link}}"
                 class="@if($colspan && !$sidebar) xl:rounded-t-none xl:rounded-l-xl xl:w-2/5 sm:h-48 @endif @if($sidebar) rounded-xl m-2 w-10 h-10 sm:w-20 sm:h-20 @else rounded-t-xl @endif relative overflow-hidden object-cover ">
-                <img data-src="{{$post->image?->url ?? asset('img/placeholder.png')}}"
+                <img data-src="{{$post->image ? $post->image->url : asset('img/placeholder.png')}}"
                      class="lazy @if($colspan && !$sidebar) xl:rounded-t-none xl:rounded-l-xl @endif w-full h-full @if($colspan || $sidebar) flex-1 @endif object-cover">
             </a>
 

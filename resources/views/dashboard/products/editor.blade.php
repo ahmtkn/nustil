@@ -50,12 +50,13 @@
                         <x-error class="text-red-500" field="nutritions"/>
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-6 gap-4">
                             @foreach(App\Models\Nutrition::all() as $nutrition)
+                                @php($productsNutrition = $editing ? $product->nutritions->where('id',$nutrition->id)->first() : false)
                                 <div class="col-span-1">
                                     <label for="nutrition-{{$nutrition->id}}"
                                            class="form-label">{{__($nutrition->name)}} ({{$nutrition->unit}})</label>
                                     <input id="nutrition-{{$nutrition->id}}" name="nutritions[{{$nutrition->id}}]"
                                            type="text" class="form-input"
-                                           value="{{old('nutritions.'.$nutrition->id) ?? ($editing ? $product->nutritions->where('id',$nutrition->id)->first()?->pivot->value: 0)}}">
+                                           value="{{old('nutritions.'.$nutrition->id) ?? ($productsNutrition  ? $productsNutrition->pivot->value: 0)}}">
                                 </div>
                             @endforeach
                         </div>

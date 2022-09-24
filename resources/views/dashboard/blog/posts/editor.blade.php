@@ -107,7 +107,7 @@
                                     <figure
                                         class="mx-auto my-2 w-28 h-28  flex items-center object-cover justify-center rounded-md relative"
                                         style="background-image:url({{asset('img/transparent-grid-bg.png')}})">
-                                        <img data-src="{{$post->image?->url}}"
+                                        <img data-src="{{$post->image ? $post->image->url : asset('img/placeholder.png')}}"
                                              alt="{{$post->title}}"
                                              class="lazy w-auto h-full object-cover mx-auto"/>
                                     </figure>

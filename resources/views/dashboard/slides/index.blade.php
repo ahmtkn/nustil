@@ -31,13 +31,13 @@
                                 <div class="text-xs flex items-center gap-2">
                                     <x-locale-flag class="w-5" :flag="$slide->locale"/>
                                     <span>•</span>
-                                    <span>{{__('Published :timeAgo',['timeAgo'=>$slide->created_at?->diffForHumans()])}}</span>
+                                    <span>{{__('Published :timeAgo',['timeAgo'=>$slide->created_at ? $slide->created_at->diffForHumans():null])}}</span>
                                     @if($slide->expires_at != null)
                                         <span>•</span>
                                         @if($slide->expires_at < now())
                                             <span class="text-red-600">{{__('Expired')}}</span>
                                         @else
-                                            <span>{{__('Displaying till :timeTill',['timeTill'=>$slide->expires_at?->diffForHumans()])}}</span>
+                                            <span>{{__('Displaying till :timeTill',['timeTill'=>$slide->expires_at ? $slide->expires_at->diffForHumans() : null])}}</span>
                                         @endif
                                     @endif
                                 </div>

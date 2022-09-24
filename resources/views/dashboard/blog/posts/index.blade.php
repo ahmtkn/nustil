@@ -43,6 +43,7 @@
             </thead>
             <tbody>
             @foreach($posts as $post)
+                @php($category = $post->categories->first())
                 <tr class="animate-x" x-data="{post:{{$post->toJson()}}}">
                     <td class="text-center hidden sm:table-cell w-5">
                         <x-locale-flag class="w-5 mx-auto" :flag="$post->locale"/>
@@ -50,7 +51,7 @@
                     <td>{{Str::limit($post->title,40)}}</td>
                     <td class="text-center">{{number_format($post->views())}}</td>
                     <td>{{__(Str::title($post->status))}}</td>
-                    <td>{{$post->categories->first()?->name}}</td>
+                    <td>{{$category ? $category->name : '--'}}</td>
 
                     @canany(['blogs.update','blogs.delete'])
                         <td class="text-center hidden md:table-cell w-20">
