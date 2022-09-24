@@ -14,7 +14,7 @@
 
     <!-- Styles -->
     @bukStyles(app()->isProduction())
-    <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css"/>
 
 </head>
@@ -109,7 +109,7 @@
     lucide.createIcons();
 </script>
 <!-- Scripts -->
-<script src="{{ mix('js/app.js') }}" defer></script>
+<script src="{{ asset('js/app.js') }}" defer></script>
 @bukScripts(app()->isProduction())
 @stack('scripts')
 
