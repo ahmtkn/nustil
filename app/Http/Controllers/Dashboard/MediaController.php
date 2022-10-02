@@ -14,6 +14,7 @@ class MediaController extends Controller
     public static function uploadImage(FormRequest $request, string $fieldName, array $options = [])
     {
         $file = $request->file($fieldName);
+        $data = $request->validated();
         $dir = $options['dir'] ?? 'uploads';
         $options = drupal_array_merge_deep($options, [
             'extra' => [
@@ -25,7 +26,7 @@ class MediaController extends Controller
         $image = Image::create([
             'name' => $options['name'] ?? $name,
             'path' => $dir.DIRECTORY_SEPARATOR.$name,
-            'type' => $options['type'] ?? ($request->has('type') ? $request->validated('type') : null),
+            'type' => $options['type'] ?? ($request->has('type') ? $data['type'] : null),
             'mime_type' => $file->getMimeType(),
         ]);
         cache()->flush();

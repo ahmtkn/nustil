@@ -85,13 +85,14 @@ class RecipeController extends Controller
      */
     public function update(UpdateRecipeRequest $request, Recipe $recipe)
     {
-        $recipe->update($request->validated());
+        $data = $request->validated();
+        $recipe->update($data);
         if ($request->hasFile('image')) {
             $recipe->image()->delete();
             $image = MediaController::uploadImage($request, 'image', ['type' => 'recipe-image']);
             $recipe->image()->save($image);
         }
-        $recipe->products()->sync($request->validated('products'));
+        $recipe->products()->sync($data['products']);
         cache()->flush();
 
         return redirect()->route('dashboard.recipes.index', $recipe)->with('message', 'Recipe updated successfully');

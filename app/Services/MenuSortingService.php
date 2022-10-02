@@ -10,8 +10,14 @@ class MenuSortingService
 
     public $items;
 
-    public function __construct(public string $group, public ?string $locale = null)
+    public string $group;
+
+    public ?string $locale = null;
+
+    public function __construct(string $group, ?string $locale = null)
     {
+        $this->locale = $locale;
+        $this->group = $group;
         $this->locale = $locale ?? app()->getLocale();
         $this->items = Menu::group($this->group)->locale($this->locale)->get();
     }

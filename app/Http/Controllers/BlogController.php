@@ -46,7 +46,7 @@ class BlogController extends Controller
         $category = cache()->remember(
             'blog_category_'.$category->id,
             86400,
-            fn() => $category->load(['posts' => ['image', 'categories'], 'children'])
+            fn() => $category->load(['posts.image', 'posts.categories', 'children'])
         );
 
         return view('blog.category', compact('category'));

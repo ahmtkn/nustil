@@ -56,10 +56,11 @@ class PostController extends Controller
 
     public function store(BlogPostCreateRequest $request)
     {
-        $published_at = $request->validated('status') == 'published'
+        $data = $request->validated();
+        $published_at = $data['status'] == 'published'
             ? ['published_at' => now()]
             : [];
-        $post = BlogPost::create($request->validated() + $published_at);
+        $post = BlogPost::create($data + $published_at);
 
         if ($request->hasFile('image')) {
             $image = MediaController::uploadImage($request, 'image', ['type' => 'post-thumbnail']);
@@ -67,7 +68,7 @@ class PostController extends Controller
         }
 
 
-        $post->categories()->attach($request->validated('categories'));
+        $post->categories()->attach($data['categories']);
         cache()->flush();
 
         return redirect()->route('dashboard.blog.posts.index')->with('message', 'Post created successfully');
@@ -88,12 +89,13 @@ class PostController extends Controller
 
     public function update(BlogPostUpdateRequest $request, BlogPost $post)
     {
+        $data = $request->validated();
         if ($post->image()->exists() && $request->hasFile('image')) {
             $post->image()->delete();
             $image = MediaController::uploadImage($request, 'image', ['type' => 'post-thumbnail']);
             $post->image()->save($image);
         }
-        $published_at = $request->validated('status') == 'published' && $post->published_at == null
+        $published_at = $data['status'] == 'published' && $post->published_at == null
             ? ['published_at' => now()]
             : [];
         $post->update($request->validated() + $published_at);

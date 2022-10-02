@@ -36,7 +36,7 @@
     @endif
 
     <article
-        class="prose @unless($page->options['fullwidth']) container  max-w-7xl  py-16 px-4  @else max-w-full w-full p-0 @endunless mx-auto min-h-[70vh] mb-24">
+        class="@unless($page->options['fullwidth']) container  max-w-7xl  py-16 px-4 prose  @else max-w-full w-full p-0 @endunless mx-auto min-h-[70vh] mb-24">
         {!! Str::markdown($page->content) !!}
     </article>
     @if($page->options['display_last_modified_date'])
