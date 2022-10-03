@@ -6,6 +6,7 @@ use App\Models\Image;
 use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 
+use App\Http\Requests\FileUploadRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
 class MediaController extends Controller
@@ -39,6 +40,12 @@ class MediaController extends Controller
         return view('dashboard.media.album', [
             'images' => Image::with('imageable')->orderBy('created_at', 'desc')->paginate(15),
         ]);
+    }
+
+    public function store(FileUploadRequest $request)
+    {
+        $image = self::uploadImage($request, 'image', ['type' => 'gallery-image']);
+        return redirect()->route('dashboard.media.index')->with('message', 'Image uploaded successfully');
     }
 
 }
