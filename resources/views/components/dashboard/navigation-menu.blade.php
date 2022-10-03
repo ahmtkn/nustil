@@ -84,6 +84,10 @@
         @endcan
         @can('settings.update')
             <li class="divider animate-y"></li>
+            <x-dashboard.sidebar-link :href="route('dashboard.redirects')" :active="$route::is('dashboard.redirects')">
+                <div class="link-icon"><i icon-name="file-symlink"></i></div>
+                <div class="link-text">{{__('Redirects')}}</div>
+            </x-dashboard.sidebar-link>
             <x-dashboard.sidebar-link :href="route('dashboard.settings.index')"
                                       :active="$route::is('dashboard.settings.*')">
                 <div class="link-icon"><i icon-name="settings"></i></div>

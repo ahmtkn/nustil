@@ -26,6 +26,11 @@ Route::group(['prefix' => $localePrefix.'/dashboard', 'as' => 'dashboard.'], fun
         \App\Routes\Dashboard\RecipeRoutes::class,
         \App\Routes\Dashboard\MediaRoutes::class,
     ]);
+    Route::get('/redirects', [\App\Http\Controllers\RedirectController::class, 'list'])->name('redirects');
+    Route::post('/redirects/capture', [\App\Http\Controllers\RedirectController::class, 'redirect'])->name('redirects.store');
+    Route::get('/redirects/{redirect}/release', [\App\Http\Controllers\RedirectController::class, 'delete'])->name(
+        'redirects.delete'
+    );
 });
 
 
