@@ -46,6 +46,6 @@ Route::group(['prefix' => $localePrefix], function () {
     Route::get('{page:slug}', PageController::class)
         ->name('page');
 });
-
+Route::get('/{any}', \App\Http\Controllers\RedirectController::class)->where('any', '.*');
 
 
