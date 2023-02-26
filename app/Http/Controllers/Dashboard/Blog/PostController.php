@@ -90,7 +90,7 @@ class PostController extends Controller
     public function update(BlogPostUpdateRequest $request, BlogPost $post)
     {
         $data = $request->validated();
-        if ($post->image()->exists() && $request->hasFile('image')) {
+        if ($request->hasFile('image')) {
             $post->image()->delete();
             $image = MediaController::uploadImage($request, 'image', ['type' => 'post-thumbnail']);
             $post->image()->save($image);

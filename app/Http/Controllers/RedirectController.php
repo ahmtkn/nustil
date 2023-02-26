@@ -20,7 +20,7 @@ class RedirectController extends Controller
     public function list()
     {
         return view('dashboard.redirects.list', [
-            'redirects' => Redirect::orderBy('deprecated')->paginate(15),
+            'redirects' => Redirect::orderByDesc('id')->paginate(15),
         ]);
     }
 

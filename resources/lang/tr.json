@@ -1,5 +1,6 @@
 {
     "Home": "Anasayfa",
+    "Contact": "İletişim",
     "Dashboard": "Pano",
     "Users": "Kullanıcılar",
     "User": "Kullanıcı",
@@ -162,5 +163,13 @@
     "Included Products": "İçerdiği Ürünler",
     "Notes": "Notlar",
     "Recipes": "Tarifler",
-    "Recipe": "Tarif"
+    "Recipe": "Tarif",
+    "Send us a message": "Bize mesaj gönderin",
+    "Subject": "Konu",
+    "Message": "Mesaj",
+    "Phone": "Telefon",
+    "Send": "Gönder",
+    "Our Office": "Ofisimiz",
+    "Call Us": "Bizi Arayın",
+    "Latest" : "En son çıkanlar"
 }

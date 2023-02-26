@@ -9,9 +9,13 @@ use Uutkukorkmaz\RouteOrganizer\Organizer;
 $localePrefix = LocalizationHelper::prefix((string)Request::segment(1));
 
 Route::view($localePrefix.'/dashboard', 'dashboard')
+    ->middleware('auth')
     ->name('dashboard');
 
-Route::group(['prefix' => $localePrefix.'/dashboard', 'as' => 'dashboard.'], function () {
+
+//
+
+Route::group(['prefix' => $localePrefix.'/dashboard', 'middleware'=>'auth', 'as' => 'dashboard.'], function () {
     Organizer::register([
         \App\Routes\Dashboard\MenuRoutes::class,
         \App\Routes\Dashboard\UserRoutes::class,

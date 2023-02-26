@@ -169,6 +169,11 @@ return [
     'attributes' => [
         'password' => 'Şifre',
         'old_password' => 'Eski Şifre',
+        'message' => 'Mesaj',
+        'name' => 'İsim',
+        'email' => 'E-Posta',
+        'phone' => 'Telefon',
+        'subject' => 'Konu',
     ],
 
 ];

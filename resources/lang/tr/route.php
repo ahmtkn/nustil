@@ -8,4 +8,5 @@ return [
     'popular' => 'populer',
     'search' => 'ara',
     'recipes' => 'tarifler',
+    'contact' => 'iletisim',
 ];

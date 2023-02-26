@@ -25,7 +25,7 @@ use Uutkukorkmaz\RouteOrganizer\Organizer;
 Route::get('/', function () {
     return redirect()->route('landing');
 })->name('root');
-
+Route::get('sitemap.xml', [\App\Http\Controllers\SitemapController::class, 'sitemaps'])->name('sitemaps');
 $localePrefix = LocalizationHelper::prefix((string)Request::segment(1));
 
 Route::get('media/{image:token}', MediaController::class)
@@ -43,9 +43,13 @@ Route::group(['prefix' => $localePrefix], function () {
 
     require __DIR__.'/auth.php';
 
+    Route::get('sitemap.xml', [\App\Http\Controllers\SitemapController::class, 'index'])->name('sitemap');
+    Route::get('{type}-sitemap.xml', [\App\Http\Controllers\SitemapController::class, 'custom'])->name('custom-sitemap');
+
     Route::get('{page:slug}', PageController::class)
         ->name('page');
 });
-Route::get('/{any}', \App\Http\Controllers\RedirectController::class)->where('any', '.*');
+
+Route::get('/{any}', \App\Http\Controllers\RedirectController::class)->where('any', '.*')->name('redirector');
 
 
