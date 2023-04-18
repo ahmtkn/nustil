@@ -50,18 +50,7 @@ if (!function_exists('number_shorten')) {
         return number_format($number / $divisor, $precision).$shorthand;
     }
 }
-if (!function_exists('array_filter_recursive')) {
-    function array_filter_recursive(array $array, Closure $callback = null)
-    {
-        foreach ($array as &$value) {
-            if (is_array($value)) {
-                $value = array_filter_recursive($value, $callback);
-            }
-        }
 
-        return array_filter($array, $callback);
-    }
-}
 
 if (!function_exists('hex2rgb')) {
     function hex2rgb($hex)

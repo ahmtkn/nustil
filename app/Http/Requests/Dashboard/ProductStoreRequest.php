@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Dashboard;
 
+use Illuminate\Support\Str;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ProductStoreRequest extends FormRequest
@@ -48,9 +49,20 @@ class ProductStoreRequest extends FormRequest
     public function prepareForValidation()
     {
         $this->merge([
-            'slug' => \Str::slug($this->name.' '.$this->weight.'g'),
+            'slug' => Str::slug($this->name.' '.$this->weight.'g'),
             'price' => $this->price ?? '0',
         ]);
+
+
+        if($this->has('nutritions')){
+            $nutritions = [];
+            foreach($this->input('nutritions') as $nutrition_id => $value){
+                $nutritions[$nutrition_id] = floatval(Str::replace([',',' '], ['.',' '], Str::before($value, '/')));
+            }
+            $this->merge([
+                'nutritions' => $nutritions
+            ]);
+        }
     }
 
 }

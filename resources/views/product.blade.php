@@ -147,7 +147,7 @@
                                 @endif
                                 <div class="text-emerald-900">
                                     <b class="text-lg">
-                                        {{number_format($nutrition->pivot->value,1)}}
+                                        {{number_format(floatval($nutrition->pivot->value),1)}}
                                     </b>
                                     <span class="text-sm">
                                 {{$nutrition->unit}}

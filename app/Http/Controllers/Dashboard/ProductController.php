@@ -38,7 +38,7 @@ class ProductController extends Controller
 
     public function store(ProductStoreRequest $request)
     {
-        $data = array_filter_recursive($request->validated());
+        $data = $request->validated();
         $image = MediaController::uploadImage($request, 'image', ['type' => 'product-image']);
         $product = Product::create($data);
         $product->image()->save($image);
@@ -58,7 +58,7 @@ class ProductController extends Controller
 
     public function update(ProductUpdateRequest $request, Product $product)
     {
-        $data = array_filter_recursive($request->validated());
+        $data = ($request->validated());
 
         if ($request->hasFile('image')) {
             $image = MediaController::uploadImage($request, 'image', ['type' => 'product-image']);

@@ -21,7 +21,7 @@ class Nutrition extends Model
     {
         $multiplier = config('nustil.unit_conversions.'.$from.'.'.$to);
 
-        return number_format($value * $multiplier, $decimals);
+        return number_format(floatval($value) * $multiplier, $decimals);
     }
 
 }
